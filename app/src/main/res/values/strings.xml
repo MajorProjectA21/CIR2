@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CIR2</string>
+    <string name="contetn_Discription_logo">logo</string>
+    <string name="editText_hint_register_number">REGISTER NUMBER</string>
+    <string name="editText_hint_password">PASSWORD</string>
+    <string name="editText_hint_name">Name</string>
+    <string name="editText_hint_confirm_password">CONFIRM PASSWORD</string>
+    <string name="editText_hint_mobile_number">MOBILE NUMBER</string>
+    <string name="editText_hint_email">EMAIL</string>
+    <string name="button_reset_password">RESET PASSWORD</string>
+    <string name="textView_text_forgotPassword">FORGOT PASSWORD</string>
+    <string name="checkBox_text_RememberMe">REMEMBER ME</string>
+    <string name="button_text_login">LOG IN</string>
+    <string name="button_text_signup">SIGN UP</string>
+    <string name="TextView_forgot_password">Forgot password?</string>
+    <string name="TextView_forgot_password_msg">We just need your registered Register Number and we will  to sent you password reset instructions to the registered email Id.</string>
+
+
+</resources>
