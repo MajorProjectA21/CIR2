@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".homeActivity"></activity>
+        <activity android:name=".homeActivity" />
         <activity android:name=".forgotPasswordActivity" />
         <activity android:name=".signUpActivity" />
         <activity
@@ -28,6 +28,10 @@
         <activity
             android:name=".SignInActivity"
             android:theme="@style/SplashScreenTheme" />
+        <activity
+            android:name=".navigationDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

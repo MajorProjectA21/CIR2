@@ -14,6 +14,13 @@
     <string name="button_text_signup">SIGN UP</string>
     <string name="TextView_forgot_password">Forgot password?</string>
     <string name="TextView_forgot_password_msg">We just need your registered Register Number and we will  to sent you password reset instructions to the registered email Id.</string>
+    <string name="title_activity_navigation_drawer">navigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
 
 </resources>
