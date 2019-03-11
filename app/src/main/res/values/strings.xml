@@ -14,6 +14,8 @@
     <string name="button_text_signup">SIGN UP</string>
     <string name="TextView_forgot_password">Forgot password?</string>
     <string name="TextView_forgot_password_msg">We just need your registered Register Number and we will  to sent you password reset instructions to the registered email Id.</string>
+
+
     <string name="title_activity_navigation_drawer">navigationDrawerActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -21,6 +23,22 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_home_nav">homeNav</string>
+    <string name="navigationItemHome">Home</string>
+    <string name="navigationItemProfile">Profile</string>
+    <string name="navigationItemAnnouncement">Announcement</string>
+    <string name="navigationItemNotifications">Notifications</string>
+    <string name="navigationItemAptitudeQuiz">Aptitude Quiz</string>
+    <string name="navigationItemFeedback">Feedback</string>
+    <string name="navigationItemContatUs">Contact Us</string>
+    <string name="navigationItemLogout">Logout</string>
+    <string name="navigationItemGroupCommunicate">Communicate</string>
+    <string name="title_activity_profile_nav">ProfileNavActivity</string>
+    <string name="title_activity_announcement_nav">AnnouncementNavActivity</string>
+    <string name="title_activity_notifications_nav">NotificationsNavActivity</string>
+    <string name="title_activity_aptitude_quiz_nav">AptitudeQuizNavActivity</string>
+    <string name="title_activity_feedback_nav">FeedbackNavActivity</string>
+    <string name="title_activity_about_us_nav">AboutUsNavActivity</string>
 
 
 </resources>

@@ -29,8 +29,32 @@
             android:name=".SignInActivity"
             android:theme="@style/SplashScreenTheme" />
         <activity
-            android:name=".navigationDrawerActivity"
-            android:label="@string/title_activity_navigation_drawer"
+            android:name=".homeNav"
+            android:label="@string/title_activity_home_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ProfileNavActivity"
+            android:label="@string/title_activity_profile_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AnnouncementNavActivity"
+            android:label="@string/title_activity_announcement_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".NotificationsNavActivity"
+            android:label="@string/title_activity_notifications_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AptitudeQuizNavActivity"
+            android:label="@string/title_activity_aptitude_quiz_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".FeedbackNavActivity"
+            android:label="@string/title_activity_feedback_nav"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AboutUsNavActivity"
+            android:label="@string/title_activity_about_us_nav"
             android:theme="@style/AppTheme"></activity>
     </application>
 

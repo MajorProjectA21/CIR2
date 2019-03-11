@@ -95,7 +95,7 @@ public class SignInActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         finish();
                         Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(getApplicationContext(), homeActivity.class);
+                        Intent i = new Intent(getApplicationContext(), homeNav.class);
                         startActivity(i);
                         //checkEmail();
                     } else {
