@@ -74,7 +74,7 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     public void signInFun(View view) {
-        String regNo, pass;
+        String regNo, pass, email;
         regNo = registerNumber.getText().toString().trim();
         pass = password.getText().toString().trim();
         if (isOnline(this)) {
@@ -88,7 +88,7 @@ public class SignInActivity extends AppCompatActivity {
                 password.requestFocus();
                 return;
             }
-
+        email = fetchEmail(regNo);
             mAuth.signInWithEmailAndPassword(regNo, pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
@@ -112,7 +112,12 @@ public class SignInActivity extends AppCompatActivity {
             Toast.makeText(this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
         }
     }
+String fetchEmail(String regno){
+        String email="";
 
+        return email;
+
+}
     public void onClickForgotPassword(View view) {
         Intent i = new Intent(SignInActivity.this, forgotPasswordActivity.class);
         startActivity(i);
