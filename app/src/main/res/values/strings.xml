@@ -41,4 +41,24 @@
     <string name="title_activity_about_us_nav">AboutUsNavActivity</string>
 
 
+    <string name="Department_of_CIR">Department of CIR</string>
+    <string name="Department_of_CIR_About">CIR, one of the important centres of Amrita Vishwa Vidyapeetham, provides the students of the university with the best career opportunities by closely interacting with many of the corporate giants in India. As a result of the sincere efforts of CIR, on an average about 80 odd potential recruiters from all over India have been consistently visiting our campuses for the last few years for inducting the young talents of this university to their corporate world. CIR has been instrumental in facilitating these recruiters in conducting Pre-Placement Talks, Aptitude and Technical tests, Group Discussion and Interviews.
+
+CIR maintains a close rapport with various industrial firms for organising and coordinating industrial visits, in-plant training, internships and projects for the students.
+
+All the students are imparted compulsory professional training in Life Skills and Aptitude for Campus Recruitment.</string>
+
+
+
+
+    <string name="About_Us_Description">
+The Directorate of Corporate and Industry Relations (CIR) is a unique and dedicated department of “Amrita Vishwa Vidyapeetham”, established to provide expert guidance to students in specific areas beyond their regular academic curriculum and help them fulfill their career ambitions.
+
+CIR empowers students with adequate Life Skills and domain skills so that they graduate from the University as competent and confident individuals who can take on the never-ending challenges of the industry.
+
+The University management has demonstrated its commitment to this important function by facilitating excellent infrastructure, human and other resources, in every campus.</string>
+
+
+<string name="About_Us_Title_description">\" WORK DONE TO PERFECTION IS INDEED YOGA \"</string>
+    <string name="About_us_amma_description">\"The beauty and charm of selfless love and service should not die away from the face of this earth. The world should know that a life of dedication is possible, that a life inspired by love and service to humanity is possible.\"</string>
 </resources>

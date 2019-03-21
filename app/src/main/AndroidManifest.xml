@@ -56,6 +56,10 @@
             android:name=".AboutUsNavActivity"
             android:label="@string/title_activity_about_us_nav"
             android:theme="@style/AppTheme"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

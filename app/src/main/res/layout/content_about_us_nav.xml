@@ -3,24 +3,84 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".AboutUsNavActivity"
-    tools:showIn="@layout/app_bar_home_nav">
+    android:background="@mipmap/back_li82" tools:context=".AboutUsNavActivity"
+    tools:showIn="@layout/activity_about_us_nav">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="56dp"
+    android:orientation="vertical">
+
     <TextView
-        android:id="@+id/AboutUs_nav_textView2"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="150dp"
-        android:gravity="center"
-        android:text="Contact Us"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="162dp"
-        tools:layout_editor_absoluteY="246dp"
+        android:fontFamily="-"
+        android:text="योग: कर्मसु कौशलम्"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="50sp" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/architects_daughter"
+        android:text="@string/About_Us_Title_description"
+        android:textAlignment="center"
+        android:textColor="#FFFDD0"
+        android:textSize="17sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="casual"
+        android:text="Srimad Bhagavad Gita - Chapter 2, Verse 50"
+        android:textAlignment="textEnd"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="8sp"
+        android:textStyle="bold|italic" />
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:layout_marginTop="25sp"
+       android:layout_marginBottom="25sp">
+
+       <ImageView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:adjustViewBounds="false"
+           android:contentDescription="Amma image"
+           android:src="@drawable/amma"
+           android:layout_gravity="center_vertical" />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:fontFamily="casual"
+           android:text="@string/About_us_amma_description"
+           android:textAlignment="textStart"
+           android:textColor="@color/white"
+           android:textSize="18sp" />
+
+   </LinearLayout>
+
+   </LinearLayout>
+
+
+
+
 
 
 </RelativeLayout>
