@@ -9,7 +9,7 @@
     <corners android:radius="35dp"></corners>
 
     <stroke
-        android:width="2dp"
+        android:width="3dp"
         android:color="#FFF"></stroke>
 
     <padding
