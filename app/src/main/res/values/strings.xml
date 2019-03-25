@@ -49,8 +49,6 @@ CIR maintains a close rapport with various industrial firms for organising and c
 All the students are imparted compulsory professional training in Life Skills and Aptitude for Campus Recruitment.</string>
 
 
-
-
     <string name="About_Us_Description">
 The Directorate of Corporate and Industry Relations (CIR) is a unique and dedicated department of “Amrita Vishwa Vidyapeetham”, established to provide expert guidance to students in specific areas beyond their regular academic curriculum and help them fulfill their career ambitions.
 
@@ -59,6 +57,37 @@ CIR empowers students with adequate Life Skills and domain skills so that they g
 The University management has demonstrated its commitment to this important function by facilitating excellent infrastructure, human and other resources, in every campus.</string>
 
 
-<string name="About_Us_Title_description">\" WORK DONE TO PERFECTION IS INDEED YOGA \"</string>
+    <string name="About_Us_Title_description">\" WORK DONE TO PERFECTION IS INDEED YOGA \"</string>
     <string name="About_us_amma_description">\"The beauty and charm of selfless love and service should not die away from the face of this earth. The world should know that a life of dedication is possible, that a life inspired by love and service to humanity is possible.\"</string>
+
+
+    <string-array name="genderArray">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+    </string-array>
+    <string-array name="MaritalArray">
+        <item>Unmarried</item>
+        <item>Married</item>
+    </string-array>
+    <string-array name="BloodGrpArray">
+        <item>A +ve</item>
+        <item>A -ve</item>
+        <item>B +ve</item>
+        <item>B -ve</item>
+        <item>O +ve</item>
+        <item>O -ve</item>
+        <item>AB +ve</item>
+        <item>AB -ve</item>
+    </string-array>
+    <string-array name="NationalityArray">
+        <item>Indian</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="ReligionArray">
+        <item>Hindu</item>
+        <item>Christian</item>
+        <item>Islam</item>
+        <item>Others</item>
+    </string-array>
 </resources>

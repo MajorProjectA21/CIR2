@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,15 +10,15 @@
     <!--tools:showIn="@layout/activity_profile_nav">-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="25sp"
-        android:layout_marginTop="56dp"
         android:layout_marginRight="25sp"
-        android:layout_marginBottom="25sp"
         android:background="#99000000"
         android:orientation="vertical"
         android:paddingLeft="25sp"
-        android:paddingRight="25sp">
+        android:paddingTop="56sp"
+        android:paddingRight="25sp"
+        android:paddingBottom="25sp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,101 +26,158 @@
             android:layout_marginBottom="10dp"
             android:text="Full Name:"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/profileFullNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Gender:"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
-        <EditText
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
             android:layout_marginBottom="10dp"
-            android:text="Date Of Birth:"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
 
-        <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Gender:"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/profileGenderId"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Age"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
 
-        <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Date Of Birth:"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/profileDateOfBirthEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:hint="dd/mm/yyyy"
+                android:textColor="#000102"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#000102"
-            android:background="@drawable/edittextrectangle"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Blood Group:"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
 
-        <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Age:"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/profileAgeEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:textColor="#000102"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text=" Married Status"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
 
-        <EditText
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Blood Group:"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/profileBloodGrpId"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:spinnerMode="dropdown" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text=" Marital Status:"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/profileMaritalId"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:spinnerMode="dropdown" />
+
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="Father's Name:"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/profileFathersNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="25sp" />
-
+            android:textSize="20sp" />
 
 
         <TextView
@@ -129,77 +186,66 @@
             android:layout_marginBottom="10dp"
             android:text="Permanent Address"
             android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/profileAddressEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Temporary Address"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Religion"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
 
-        <EditText
+            <Spinner
+                android:id="@+id/profileReligionId"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:spinnerMode="dropdown" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="Religion"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
+            android:orientation="horizontal">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Nationality"
+                android:textColor="#ffffff"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Nationality"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
+            <Spinner
+                android:id="@+id/profileNationalityId"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/edittextrectangle"
+                android:spinnerMode="dropdown" />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Email:"
-            android:textColor="@color/white"
-            android:textSize="25sp" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edittextrectangle"
-            android:textColor="#000102"
-            android:textSize="25sp" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -207,32 +253,17 @@
             android:layout_marginBottom="10dp"
             android:text="Phone Number:"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/profilePhoneNumberEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="25sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:text="Languages Known"
-            android:textColor="#ffffff"
-            android:textSize="25sp" />
-
-
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="25sp"
-            android:textColor="#000102"
-            android:background="@drawable/edittextrectangle"/>
+            android:textSize="20sp" />
 
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

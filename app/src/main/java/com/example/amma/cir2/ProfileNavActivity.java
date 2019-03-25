@@ -13,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 public class ProfileNavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -36,6 +38,36 @@ public class ProfileNavActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Spinner spinGender = findViewById(R.id.profileGenderId);
+        ArrayAdapter<String> arrayAdapterGender = new ArrayAdapter<String>(ProfileNavActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.genderArray));
+        arrayAdapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinGender.setAdapter(arrayAdapterGender);
+
+        Spinner spinMarital = findViewById(R.id.profileMaritalId);
+        ArrayAdapter<String> arrayAdapterMarital = new ArrayAdapter<String>(ProfileNavActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.MaritalArray));
+        arrayAdapterMarital.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinMarital.setAdapter(arrayAdapterMarital);
+
+        Spinner spinBloodGrp = findViewById(R.id.profileBloodGrpId);
+        ArrayAdapter<String> arrayAdapterBloodGrp = new ArrayAdapter<String>(ProfileNavActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.BloodGrpArray));
+        arrayAdapterBloodGrp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinBloodGrp.setAdapter(arrayAdapterBloodGrp);
+
+        Spinner spinNationality = findViewById(R.id.profileNationalityId);
+        ArrayAdapter<String> arrayAdapterNationality = new ArrayAdapter<String>(ProfileNavActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.NationalityArray));
+        arrayAdapterNationality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinNationality.setAdapter(arrayAdapterNationality);
+
+        Spinner spinReligion = findViewById(R.id.profileReligionId);
+        ArrayAdapter<String> arrayAdapterReligion = new ArrayAdapter<String>(ProfileNavActivity.this,
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ReligionArray));
+        arrayAdapterReligion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinReligion.setAdapter(arrayAdapterReligion);
     }
 
     @Override
