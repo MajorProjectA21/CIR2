@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="25sp"
         android:layout_marginRight="25sp"
-        android:background="#99000000"
+        android:background="#80000000"
         android:orientation="vertical"
         android:paddingLeft="25sp"
         android:paddingTop="56sp"
@@ -262,8 +262,32 @@
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
             android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
 
+            >
+            <Button
+                android:text="Update"
+                android:layout_width="145sp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shapelogin"
+                android:onClick="updateButtonEvent"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:textColor="@color/white"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10sp"
+                android:background="@drawable/shapesignup"
+                android:text="Save"
+                android:onClick="saveButtonEvent"/>
+        </LinearLayout>
 
     </LinearLayout>
+
 
 </ScrollView>

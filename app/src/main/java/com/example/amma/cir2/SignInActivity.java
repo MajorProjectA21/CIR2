@@ -55,17 +55,17 @@ public class SignInActivity extends AppCompatActivity {
         });
 
     }
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        if (mAuth.getCurrentUser() != null) {
-//            //handle the already login user
-//            Toast.makeText(this, "Already Logged in", Toast.LENGTH_LONG).show();
-//            this.finish();
-//            Intent intent = new Intent(SignInActivity.this, homeActivity.class);
-//            startActivity(intent);
-//        }
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mAuth.getCurrentUser() != null) {
+            //handle the already login user
+            Toast.makeText(this, "Already Logged in", Toast.LENGTH_LONG).show();
+            this.finish();
+            Intent intent = new Intent(SignInActivity.this, homeNav.class);
+            startActivity(intent);
+        }
+    }
 
     public void signUpFun(View view) {
         Intent i = new Intent(SignInActivity.this, signUpActivity.class);
