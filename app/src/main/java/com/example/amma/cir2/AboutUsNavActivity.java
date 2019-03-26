@@ -27,7 +27,7 @@ public class AboutUsNavActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        setTitle("About Us");
         setContentView(R.layout.activity_about_us_nav);
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
