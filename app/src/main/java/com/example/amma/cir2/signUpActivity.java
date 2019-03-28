@@ -136,50 +136,47 @@ public class signUpActivity extends AppCompatActivity {
                 confirmPassword.setText("");
                 password.requestFocus();
             }
-            User user = new User(regId, email);
-            databaseReference.setValue(user);
-//            mAuth.createUserWithEmailAndPassword(email, pass)
-//                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                            if (task.isSuccessful()) {
-//
-//                                User user = new User(regId, email);
-//
-//                                FirebaseDatabase.getInstance().getReference("Users")
-//                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                     //   progressBar.setVisibility(View.GONE);
-//                                        if (task.isSuccessful()) {
-//                                            Toast.makeText(signUpActivity.this, "registration_success", Toast.LENGTH_LONG).show();
-//                                            Intent intent = new Intent(signUpActivity.this, homeActivity.class);
-//                                            startActivity(intent);
-//                                        } else {
-//                                            Toast.makeText(signUpActivity.this, "Failed", Toast.LENGTH_LONG).show();
-//                                            Toast.makeText(signUpActivity.this,
-//                                                    "Login unsuccessful: " + task.getException().getMessage(), //ADD THIS
-//                                                    Toast.LENGTH_SHORT).show();
-//                                           // progressBar.setVisibility(View.GONE);
-//                                        }
-//                                    }
-//                                });
-//
-//                            } else {
-//                                Toast.makeText(signUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
-//                              //  progressBar.setVisibility(View.GONE);
-//                            }
-//                        }
-//                    });
-//
-//        }
-//        else{
-//            Toast.makeText(this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
-//        }
+            //  User user = new User(regId, email);
+            //  databaseReference.setValue(user);
+            mAuth.createUserWithEmailAndPassword(email, pass)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
 
+                            if (task.isSuccessful()) {
+                                User user = new User(regId, email);
+
+                                databaseReference
+                                        .child(regId)
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        //   progressBar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(signUpActivity.this, "registration_success", Toast.LENGTH_LONG).show();
+                                            Intent intent = new Intent(signUpActivity.this, homeNav.class);
+                                            startActivity(intent);
+                                        } else {
+                                            Toast.makeText(signUpActivity.this, "Failed", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(signUpActivity.this,
+                                                    "Login unsuccessful: " + task.getException().getMessage(), //ADD THIS
+                                                    Toast.LENGTH_SHORT).show();
+                                            // progressBar.setVisibility(View.GONE);
+                                        }
+                                    }
+                                });
+//
+                            } else {
+                                Toast.makeText(signUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                                //  progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+//
+        } else {
+            Toast.makeText(this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 

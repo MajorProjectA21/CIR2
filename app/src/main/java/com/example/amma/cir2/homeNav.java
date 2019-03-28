@@ -1,9 +1,11 @@
 package com.example.amma.cir2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,8 +16,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class homeNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth mAuth;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar = null;
@@ -28,7 +34,7 @@ public class homeNav extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        mAuth = FirebaseAuth.getInstance();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -109,8 +115,25 @@ public class homeNav extends AppCompatActivity
                startActivity(c);
                break;
            case R.id.nav_Logout:
-               Intent l = new Intent (homeNav.this,homeNav.class);
-               startActivity(l);
+               final AlertDialog.Builder builder = new AlertDialog.Builder((this));
+               builder.setMessage("Are you sure ,you want to Logout?");
+               builder.setCancelable(true);
+               builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                       dialogInterface.cancel();
+                   }
+               });
+               builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                   @Override
+                   public void onClick(DialogInterface dialogInterface, int i) {
+                       homeNav.this.finish();
+                       mAuth.signOut();
+                       startActivity(new Intent(homeNav.this,SignInActivity.class));
+                   }
+               });
+               AlertDialog alertDialog = builder.create();
+               alertDialog.show();
                break;
 
        }
