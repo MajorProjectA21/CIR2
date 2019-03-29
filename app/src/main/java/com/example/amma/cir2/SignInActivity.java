@@ -63,12 +63,14 @@ public class SignInActivity extends AppCompatActivity {
             Toast.makeText(this, "Already Logged in", Toast.LENGTH_LONG).show();
             this.finish();
             Intent intent = new Intent(SignInActivity.this, homeNav.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }
 
     public void signUpFun(View view) {
         Intent i = new Intent(SignInActivity.this, signUpActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(i);
         finish();
     }
@@ -96,6 +98,7 @@ public class SignInActivity extends AppCompatActivity {
                         finish();
                         Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(getApplicationContext(), homeNav.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(i);
                         //checkEmail();
                     } else {

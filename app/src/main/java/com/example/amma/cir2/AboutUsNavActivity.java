@@ -134,10 +134,11 @@ public class AboutUsNavActivity extends AppCompatActivity
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        AboutUsNavActivity.this.finish();
+                        //AboutUsNavActivity.this.finish();
+                        finishAffinity();
                         mAuth.signOut();
                         Intent intent = new Intent(AboutUsNavActivity.this,SignInActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 });

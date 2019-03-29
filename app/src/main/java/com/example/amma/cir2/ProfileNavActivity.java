@@ -167,9 +167,12 @@ public class ProfileNavActivity extends AppCompatActivity
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ProfileNavActivity.this.finish();
+                       // ProfileNavActivity.this.finish();
+                        finishAffinity();
                         mAuth.signOut();
-                        startActivity(new Intent(ProfileNavActivity.this,SignInActivity.class));
+                        Intent intent = new Intent(ProfileNavActivity.this,SignInActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
                 });
                 AlertDialog alertDialog = builder.create();

@@ -127,9 +127,12 @@ public class homeNav extends AppCompatActivity
                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                    @Override
                    public void onClick(DialogInterface dialogInterface, int i) {
-                       homeNav.this.finish();
+                       Intent intent = new Intent(homeNav.this,SignInActivity.class);
+                       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                       //homeNav.this.finish();
+                       finishAffinity();
                        mAuth.signOut();
-                       startActivity(new Intent(homeNav.this,SignInActivity.class));
+                       startActivity(intent);
                    }
                });
                AlertDialog alertDialog = builder.create();

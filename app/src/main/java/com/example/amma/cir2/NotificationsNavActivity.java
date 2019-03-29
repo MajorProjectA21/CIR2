@@ -126,9 +126,12 @@ public class NotificationsNavActivity extends AppCompatActivity
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        NotificationsNavActivity.this.finish();
+                        //NotificationsNavActivity.this.finish();
+                        finishAffinity();
                         mAuth.signOut();
-                        startActivity(new Intent(NotificationsNavActivity.this,SignInActivity.class));
+                        Intent intent = new Intent(NotificationsNavActivity.this,SignInActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
                 });
                 AlertDialog alertDialog = builder.create();

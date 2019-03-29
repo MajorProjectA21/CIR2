@@ -127,9 +127,12 @@ public class FeedbackNavActivity extends AppCompatActivity
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        FeedbackNavActivity.this.finish();
+                       // FeedbackNavActivity.this.finish();
+                        finishAffinity();
                         mAuth.signOut();
-                        startActivity(new Intent(FeedbackNavActivity.this,SignInActivity.class));
+                        Intent intent = new Intent(FeedbackNavActivity.this,SignInActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
                 });
                 AlertDialog alertDialog = builder.create();
