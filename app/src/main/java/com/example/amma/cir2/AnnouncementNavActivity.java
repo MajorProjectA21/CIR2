@@ -33,6 +33,7 @@ public class AnnouncementNavActivity extends AppCompatActivity
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Announcement");
 
         mAuth = FirebaseAuth.getInstance();
 

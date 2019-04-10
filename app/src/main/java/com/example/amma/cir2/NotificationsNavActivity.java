@@ -33,6 +33,7 @@ public class NotificationsNavActivity extends AppCompatActivity
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Notifications");
         mAuth = FirebaseAuth.getInstance();
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

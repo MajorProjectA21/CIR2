@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -37,14 +38,14 @@ import java.util.Date;
 
 public class ProfileNavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-User user;
-    private FirebaseAuth mAuth;
-    DrawerLayout drawer;
-    NavigationView navigationView;
-    Toolbar toolbar = null;
+    public User user;
+    public FirebaseAuth mAuth;
+    public DrawerLayout drawer;
+    public NavigationView navigationView;
+    public Toolbar toolbar = null;
 
-    FirebaseFirestore db;
-    DatabaseReference mDatabase;
+    public FirebaseFirestore db;
+    public DatabaseReference mDatabase;
 
 
     EditText etFullName, etDOB, etAge, etFathersName, etPAddress, etPhone;
@@ -109,7 +110,7 @@ User user;
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance().getReference("UserEmailRegistrationTable");
     }
 
     @Override
@@ -204,7 +205,6 @@ User user;
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
                 break;
-
         }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -214,7 +214,6 @@ User user;
 
     public void updateButtonEvent(View view) {
         String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
-
         etFullName.setEnabled(true);
         etDOB.setEnabled(true);
         //etAge.setEnabled(true);
@@ -228,7 +227,7 @@ User user;
         spinReligion.setEnabled(true);
     }
 
-    public void saveButtonEvent(View view) throws Exception {
+    public void saveButtonEvent(View view){
         String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
         sFullName = etFullName.getText().toString();
         sdob = etDOB.getText().toString();
@@ -241,85 +240,95 @@ User user;
         sNationality = spinNationality.getSelectedItem().toString();
         sReligion = spinReligion.getSelectedItem().toString();
 
-        Date calculateddob = new SimpleDateFormat("dd/MM/yyyy").parse(sdob);
-        sAge = getAge(calculateddob.getDate(), calculateddob.getMonth(), calculateddob.getYear());
+        try {
+            Date calculateddob = new SimpleDateFormat("dd/MM/yyyy").parse(sdob);
+            sAge = getAge(calculateddob.getDate(), calculateddob.getMonth(), calculateddob.getYear());
 
-
-        etFullName.setEnabled(false);
-        etDOB.setEnabled(false);
-        etAge.setEnabled(false);
-        etFathersName.setEnabled(false);
-        etPAddress.setEnabled(false);
-        etPhone.setEnabled(false);
-        spinGender.setEnabled(false);
-        spinMarital.setEnabled(false);
-        spinBloodGrp.setEnabled(false);
-        spinNationality.setEnabled(false);
-        spinReligion.setEnabled(false);
-
-        addToDatabase(sFullName, sGender, sdob, sAge, sBloodgrp, sMartial, sFathersName, sPAddress, sReligion, sNationality, sPhone);
+            etFullName.setEnabled(false);
+            etDOB.setEnabled(false);
+            etAge.setEnabled(false);
+            etFathersName.setEnabled(false);
+            etPAddress.setEnabled(false);
+            etPhone.setEnabled(false);
+            spinGender.setEnabled(false);
+            spinMarital.setEnabled(false);
+            spinBloodGrp.setEnabled(false);
+            spinNationality.setEnabled(false);
+            spinReligion.setEnabled(false);
+            addToDatabase(sFullName, sGender, sdob, sAge, sBloodgrp, sMartial, sFathersName, sPAddress, sReligion, sNationality, sPhone);
+        } catch (Exception e) {
+            Toast.makeText(this,"Error:"+e.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 
     public void addToDatabase(String fullName, String gender, String DOB, String age, String bloodgrp, String martial_Status, String fathersName, String address, String religion, String nationality, String phone_Number) {
-        studentProfileDetails stDetails = new studentProfileDetails(fullName, gender, DOB, age, bloodgrp, martial_Status, fathersName, address, religion, nationality, phone_Number);
-        //String userEmail = mAuth.getCurrentUser().getEmail().toString();
-        String regID = fetchRegistrationId();
-        db.collection("Personal_Details").document(user.getEmail()).set(stDetails)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(ProfileNavActivity.this, "User Registered",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(ProfileNavActivity.this, "ERROR" + e.toString(),
-                                Toast.LENGTH_SHORT).show();
-                        Log.d("TAG", e.toString());
-                    }
-                });
+        try {
+            studentProfileDetails stDetails = new studentProfileDetails(fullName, gender, DOB, age, bloodgrp, martial_Status, fathersName, address, religion, nationality, phone_Number);
+            fetchRegistrationId();
+            //String regno = user.getRegisterNumber();
+            db.collection("Personal_Details").document("khsci5mca16035").set(stDetails)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(ProfileNavActivity.this, "User Registered",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ProfileNavActivity.this, "ERROR" + e.toString(),
+                                    Toast.LENGTH_SHORT).show();
+                            Log.d("TAG", e.toString());
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(ProfileNavActivity.this,"Error"+e.getMessage(),Toast.LENGTH_LONG).show();
+        }
     }
 
-    private String getAge(int year, int month, int day) {
-        Calendar dob = Calendar.getInstance();
-        Calendar today = Calendar.getInstance();
+    private String getAge(int day, int month, int year) {
 
-        dob.set(year, month, day);
+            Calendar dob = Calendar.getInstance();
+            Calendar today = Calendar.getInstance();
 
-        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+            dob.set(year, month, day);
 
-        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-            age--;
+            int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+            if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+                age--;
+            }
+
+            Integer ageInt = new Integer(age);
+
+            String ageS = ageInt.toString();
+
+            return ageS;
+
+
+
+    }
+
+    public void fetchRegistrationId() {
+        try {
+            mDatabase.child("jKr1Pnwkg6XggsMu8yKUJjM50Y83").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    user = dataSnapshot.getValue(User.class);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    Toast.makeText(ProfileNavActivity.this,"Failed to read data"+ error.getMessage(),Toast.LENGTH_LONG).show();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(ProfileNavActivity.this,"Failed to read data"+ e.getMessage(),Toast.LENGTH_LONG).show();
         }
 
-        Integer ageInt = new Integer(age);
-        String ageS = ageInt.toString();
-
-        return ageS;
     }
-
-    public String fetchRegistrationId( ) {
-
-
-        mDatabase.child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String e;
-                user = dataSnapshot.getValue(User.class);
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-
-            }
-        });
-        return "";
-    }
-
 }
 

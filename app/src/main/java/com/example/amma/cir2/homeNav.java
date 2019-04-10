@@ -33,6 +33,7 @@ public class homeNav extends AppCompatActivity
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Home");
 
         mAuth = FirebaseAuth.getInstance();
 

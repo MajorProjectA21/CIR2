@@ -33,6 +33,7 @@ public class FeedbackNavActivity extends AppCompatActivity
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Feedback");
 
         mAuth = FirebaseAuth.getInstance();
 

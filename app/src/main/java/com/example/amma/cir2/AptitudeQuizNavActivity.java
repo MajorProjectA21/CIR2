@@ -33,6 +33,7 @@ public class AptitudeQuizNavActivity extends AppCompatActivity
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setTitle("Aptitude Quiz");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -144,5 +145,9 @@ public class AptitudeQuizNavActivity extends AppCompatActivity
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void onClickStartQuiz(View view){
+        Intent intent = new Intent(AptitudeQuizNavActivity.this,QuizActivity.class);
+        startActivity(intent);
     }
 }

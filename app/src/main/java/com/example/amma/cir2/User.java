@@ -3,6 +3,7 @@ package com.example.amma.cir2;
 public class User {
     public String registerNumber, email;
 
+    public User(){}
     public User(String registerNumber, String email) {
         this.registerNumber = registerNumber;
         this.email = email;
