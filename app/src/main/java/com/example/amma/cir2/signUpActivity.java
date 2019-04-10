@@ -147,7 +147,7 @@ public class signUpActivity extends AppCompatActivity {
                                 User user = new User(regId, email);
 
                                 databaseReference
-                                        .child(regId)
+                                        .child(mAuth.getUid())
                                         .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

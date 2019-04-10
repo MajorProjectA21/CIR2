@@ -3,6 +3,7 @@ package com.example.amma.cir2;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -10,22 +11,41 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class ProfileNavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+User user;
     private FirebaseAuth mAuth;
     DrawerLayout drawer;
     NavigationView navigationView;
     Toolbar toolbar = null;
+
+    FirebaseFirestore db;
+    DatabaseReference mDatabase;
+
 
     EditText etFullName, etDOB, etAge, etFathersName, etPAddress, etPhone;
     Spinner spinGender, spinMarital, spinBloodGrp, spinNationality, spinReligion;
@@ -37,7 +57,9 @@ public class ProfileNavActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.overridePendingTransition(0, 0);
-        mAuth = FirebaseAuth.getInstance();
+
+
+        setTitle("Profile");
 
         etFullName = findViewById(R.id.profileFullNameEditText);
         etDOB = findViewById(R.id.profileDateOfBirthEditText);
@@ -84,6 +106,10 @@ public class ProfileNavActivity extends AppCompatActivity
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ReligionArray));
         arrayAdapterReligion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinReligion.setAdapter(arrayAdapterReligion);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -167,10 +193,10 @@ public class ProfileNavActivity extends AppCompatActivity
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                       // ProfileNavActivity.this.finish();
+                        // ProfileNavActivity.this.finish();
                         finishAffinity();
                         mAuth.signOut();
-                        Intent intent = new Intent(ProfileNavActivity.this,SignInActivity.class);
+                        Intent intent = new Intent(ProfileNavActivity.this, SignInActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
@@ -200,7 +226,10 @@ public class ProfileNavActivity extends AppCompatActivity
         spinBloodGrp.setEnabled(true);
         spinNationality.setEnabled(true);
         spinReligion.setEnabled(true);
+    }
 
+    public void saveButtonEvent(View view) throws Exception {
+        String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
         sFullName = etFullName.getText().toString();
         sdob = etDOB.getText().toString();
         sFathersName = etFathersName.getText().toString();
@@ -212,9 +241,9 @@ public class ProfileNavActivity extends AppCompatActivity
         sNationality = spinNationality.getSelectedItem().toString();
         sReligion = spinReligion.getSelectedItem().toString();
 
-    }
+        Date calculateddob = new SimpleDateFormat("dd/MM/yyyy").parse(sdob);
+        sAge = getAge(calculateddob.getDate(), calculateddob.getMonth(), calculateddob.getYear());
 
-    public void saveButtonEvent(View view) {
 
         etFullName.setEnabled(false);
         etDOB.setEnabled(false);
@@ -228,7 +257,69 @@ public class ProfileNavActivity extends AppCompatActivity
         spinNationality.setEnabled(false);
         spinReligion.setEnabled(false);
 
-
+        addToDatabase(sFullName, sGender, sdob, sAge, sBloodgrp, sMartial, sFathersName, sPAddress, sReligion, sNationality, sPhone);
     }
+
+    public void addToDatabase(String fullName, String gender, String DOB, String age, String bloodgrp, String martial_Status, String fathersName, String address, String religion, String nationality, String phone_Number) {
+        studentProfileDetails stDetails = new studentProfileDetails(fullName, gender, DOB, age, bloodgrp, martial_Status, fathersName, address, religion, nationality, phone_Number);
+        //String userEmail = mAuth.getCurrentUser().getEmail().toString();
+        String regID = fetchRegistrationId();
+        db.collection("Personal_Details").document(user.getEmail()).set(stDetails)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(ProfileNavActivity.this, "User Registered",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(ProfileNavActivity.this, "ERROR" + e.toString(),
+                                Toast.LENGTH_SHORT).show();
+                        Log.d("TAG", e.toString());
+                    }
+                });
+    }
+
+    private String getAge(int year, int month, int day) {
+        Calendar dob = Calendar.getInstance();
+        Calendar today = Calendar.getInstance();
+
+        dob.set(year, month, day);
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+
+        Integer ageInt = new Integer(age);
+        String ageS = ageInt.toString();
+
+        return ageS;
+    }
+
+    public String fetchRegistrationId( ) {
+
+
+        mDatabase.child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String e;
+                user = dataSnapshot.getValue(User.class);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+
+            }
+        });
+        return "";
+    }
+
 }
 
