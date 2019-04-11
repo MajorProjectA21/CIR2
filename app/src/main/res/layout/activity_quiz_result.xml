@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/wallpaper"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".quizResultActivity">
+    <TextView
+        android:id="@+id/text_view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Aptitude Quiz Report"
+        android:textAlignment="center"
+        android:textColor="#ffff"
+        android:textSize="40sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_marginTop="100dp"
+        android:id="@+id/text_view_total_questions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Total Questions:"
+        android:layout_gravity="left"
+        android:textColor="#ffff"
+        android:textSize="20sp" />
+        <TextView
+            android:layout_marginTop="100dp"
+            android:id="@+id/text_view_total_questions_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Total Questions:"
+            android:layout_marginLeft="20dp"
+            android:textColor="#33FF33"
+            android:textSize="30sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginTop="100dp"
+            android:id="@+id/text_view_Correct_Answers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Correct Answers:"
+            android:layout_gravity="left"
+            android:textColor="#ffff"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_marginTop="100dp"
+            android:id="@+id/text_view_Correct_Answers_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Correct Answers:"
+            android:layout_marginLeft="20dp"
+            android:textColor="#33FF33"
+            android:textSize="30sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_marginTop="100dp"
+            android:id="@+id/text_view_Wrong_Answers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Wrong Answers:"
+            android:layout_gravity="left"
+            android:textColor="#ffff"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_marginTop="100dp"
+            android:id="@+id/text_view_Wrong_Answers_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="Wrong Answers"
+            android:layout_marginLeft="20dp"
+            android:textColor="#33FF33"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
