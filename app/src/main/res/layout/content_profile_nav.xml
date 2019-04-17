@@ -34,7 +34,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:inputType="textPersonName"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,9 +82,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
                 android:background="@drawable/edittextrectangle"
-                android:hint="dd/mm/yyyy"
+                android:focusable="false"
                 android:textColor="#000102"
+                android:clickable="true"
+                android:inputType="none"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +109,9 @@
                 android:id="@+id/profileAgeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginLeft="10sp"
+                android:clickable="true"
                 android:background="@drawable/edittextrectangle"
                 android:textColor="#000102"
                 android:textSize="20sp" />
@@ -177,7 +183,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:inputType="text"/>
 
 
         <TextView
@@ -194,7 +201,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:inputType="text"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -259,6 +267,7 @@
             android:id="@+id/profilePhoneNumberEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="phone"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
             android:textSize="20sp" />

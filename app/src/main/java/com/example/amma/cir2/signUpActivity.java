@@ -95,7 +95,6 @@ public class signUpActivity extends AppCompatActivity {
         if (isOnline(this)) {
 
             if (regId.isEmpty()) {
-                //Toast.makeText(signUpActivity.this, "Register Number required", Toast.LENGTH_LONG).show();
                 registerNumber.requestFocus();
                 registerNumber.setError("Register Number required");
                 return;
@@ -135,9 +134,9 @@ public class signUpActivity extends AppCompatActivity {
                 password.setText("");
                 confirmPassword.setText("");
                 password.requestFocus();
+                return;
             }
-            //  User user = new User(regId, email);
-            //  databaseReference.setValue(user);
+
             mAuth.createUserWithEmailAndPassword(email, pass)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
@@ -147,7 +146,7 @@ public class signUpActivity extends AppCompatActivity {
                                 User user = new User(regId, email);
 
                                 databaseReference
-                                        .child(mAuth.getUid())
+                                        .child(regId)
                                         .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

@@ -1,5 +1,6 @@
 package com.example.amma.cir2;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -29,11 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 
 public class ProfileNavActivity extends AppCompatActivity
@@ -47,9 +47,10 @@ public class ProfileNavActivity extends AppCompatActivity
     public FirebaseFirestore db;
     public DatabaseReference mDatabase;
 
-
     EditText etFullName, etDOB, etAge, etFathersName, etPAddress, etPhone;
     Spinner spinGender, spinMarital, spinBloodGrp, spinNationality, spinReligion;
+
+    Calendar myCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +60,39 @@ public class ProfileNavActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         this.overridePendingTransition(0, 0);
 
-
+        myCalendar= Calendar.getInstance();
         setTitle("Profile");
 
         etFullName = findViewById(R.id.profileFullNameEditText);
         etDOB = findViewById(R.id.profileDateOfBirthEditText);
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+//                myCalendar.set(Calendar.YEAR, year);
+//                myCalendar.set(Calendar.MONTH, monthOfYear);
+//                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                myCalendar.set(year,monthOfYear,dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+        etDOB.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(ProfileNavActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
         etAge = findViewById(R.id.profileAgeEditText);
+
+
         etFathersName = findViewById(R.id.profileFathersNameEditText);
         etPAddress = findViewById(R.id.profileAddressEditText);
         etPhone = findViewById(R.id.profilePhoneNumberEditText);
@@ -121,6 +149,13 @@ public class ProfileNavActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        etDOB.setText(sdf.format(myCalendar.getTime()));
+        getAge();
     }
 
     @Override
@@ -213,10 +248,8 @@ public class ProfileNavActivity extends AppCompatActivity
     }
 
     public void updateButtonEvent(View view) {
-        String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
         etFullName.setEnabled(true);
         etDOB.setEnabled(true);
-        //etAge.setEnabled(true);
         etFathersName.setEnabled(true);
         etPAddress.setEnabled(true);
         etPhone.setEnabled(true);
@@ -230,6 +263,7 @@ public class ProfileNavActivity extends AppCompatActivity
     public void saveButtonEvent(View view){
         String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
         sFullName = etFullName.getText().toString();
+        sAge = etAge.getText().toString();
         sdob = etDOB.getText().toString();
         sFathersName = etFathersName.getText().toString();
         sPAddress = etPAddress.getText().toString();
@@ -241,12 +275,13 @@ public class ProfileNavActivity extends AppCompatActivity
         sReligion = spinReligion.getSelectedItem().toString();
 
         try {
-            Date calculateddob = new SimpleDateFormat("dd/MM/yyyy").parse(sdob);
-            sAge = getAge(calculateddob.getDate(), calculateddob.getMonth(), calculateddob.getYear());
-
             etFullName.setEnabled(false);
             etDOB.setEnabled(false);
+            etDOB.setFocusable(false);
+            etDOB.setClickable(false);
             etAge.setEnabled(false);
+            etAge.setFocusable(false);
+            etAge.setClickable(false);
             etFathersName.setEnabled(false);
             etPAddress.setEnabled(false);
             etPhone.setEnabled(false);
@@ -288,12 +323,12 @@ public class ProfileNavActivity extends AppCompatActivity
         }
     }
 
-    private String getAge(int day, int month, int year) {
+    private void getAge() {
 
-            Calendar dob = Calendar.getInstance();
+            Calendar dob = myCalendar;
             Calendar today = Calendar.getInstance();
 
-            dob.set(year, month, day);
+            //dob.set(year, month, day);
 
             int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
@@ -304,11 +339,7 @@ public class ProfileNavActivity extends AppCompatActivity
             Integer ageInt = new Integer(age);
 
             String ageS = ageInt.toString();
-
-            return ageS;
-
-
-
+            etAge.setText(ageS);
     }
 
     public void fetchRegistrationId() {
