@@ -1,6 +1,7 @@
 package com.example.amma.cir2;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -20,10 +21,19 @@ public class quizResultActivity extends AppCompatActivity {
 
         String questions = intent.getStringExtra("total");
         String correct = intent.getStringExtra("correct");
-        String wrong = intent.getStringExtra("wrong");
+        String wrong = intent.getStringExtra("incorrect");
 
         t1.setText(questions);
         t2.setText(correct);
         t3.setText(wrong);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent i = new Intent(quizResultActivity.this, AptitudeQuizNavActivity.class);
+                startActivity(i);
+                finish();
+            }
+        }, 8000);
     }
 }

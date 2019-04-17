@@ -296,10 +296,10 @@
             >
             <Button
                 android:text="Academic Details"
-                android:layout_width="145sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shapelogin"
-                android:onClick="updateButtonEvent"
+                android:onClick="AcademicButtonClick"
                 />
         </LinearLayout>
 

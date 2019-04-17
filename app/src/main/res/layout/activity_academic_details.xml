@@ -155,6 +155,7 @@
                 android:textSize="35dp" />
 
             <CheckBox
+                android:id="@+id/AcademicDetailsCb1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="semester 1"
@@ -207,6 +208,277 @@
 
             </LinearLayout>
 
+
+
+            <CheckBox
+                android:id="@+id/AcademicDetailsCb2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="semester 2"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem2CgpaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CGPA:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem2Cgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem2DOPTExtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Passing:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem2DOPCgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+
+
+            </LinearLayout>
+
+
+            <CheckBox
+                android:id="@+id/AcademicDetailsCb3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="semester 3"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem3CgpaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CGPA:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem3Cgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem3DOPTExtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Passing:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem3DOPCgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+
+
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/AcademicDetailsCb4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="semester 4"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem4CgpaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CGPA:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem4Cgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem4DOPTExtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Passing:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem4DOPCgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+
+
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/AcademicDetailsCb5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="semester 5"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem5CgpaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CGPA:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem5Cgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem5DOPTExtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Passing:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem5DOPCgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+
+
+            </LinearLayout>
+            <CheckBox
+                android:id="@+id/AcademicDetailsCb6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="semester 6"
+                android:textColor="@color/white"
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem6CgpaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="CGPA:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem6Cgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="25dp">
+
+                <TextView
+                    android:id="@+id/AcademicSem6DOPTExtView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date Of Passing:"
+                    android:textColor="@color/white"
+                    android:textSize="20dp" />
+
+                <EditText
+                    android:id="@+id/AcademicSem6DOPCgpa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextrectangle" />
+
+
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -219,6 +491,7 @@
             >
 
             <Button
+                android:id="@+id/AcademicDetailsUpdateButton"
                 android:layout_width="145sp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shapelogin"
@@ -226,6 +499,7 @@
                 android:text="Update" />
 
             <Button
+                android:id="@+id/AcademicDetailsSaveButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10sp"
@@ -245,11 +519,11 @@
             >
 
             <Button
-                android:layout_width="145sp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shapelogin"
-                android:onClick="updateButtonEvent"
-                android:text="Academic Details" />
+                android:onClick="personalButtonClick"
+                android:text="Personal Details" />
         </LinearLayout>
 
     </LinearLayout>

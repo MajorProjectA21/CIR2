@@ -265,8 +265,8 @@ public class ProfileNavActivity extends AppCompatActivity
         try {
             studentProfileDetails stDetails = new studentProfileDetails(fullName, gender, DOB, age, bloodgrp, martial_Status, fathersName, address, religion, nationality, phone_Number);
             fetchRegistrationId();
-            //String regno = user.getRegisterNumber();
-            db.collection("Personal_Details").document("khsci5mca16035").set(stDetails)
+            String regno = user.getRegisterNumber();
+            db.collection("Personal_Details").document(regno).set(stDetails)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -313,7 +313,7 @@ public class ProfileNavActivity extends AppCompatActivity
 
     public void fetchRegistrationId() {
         try {
-            mDatabase.child("jKr1Pnwkg6XggsMu8yKUJjM50Y83").addValueEventListener(new ValueEventListener() {
+            mDatabase.child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     user = dataSnapshot.getValue(User.class);
@@ -330,5 +330,12 @@ public class ProfileNavActivity extends AppCompatActivity
         }
 
     }
+    public void AcademicButtonClick(View view){
+        Intent intent = new Intent(ProfileNavActivity.this, AcademicDetailsActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
 }
+
 
