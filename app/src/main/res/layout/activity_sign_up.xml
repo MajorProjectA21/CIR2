@@ -44,7 +44,8 @@
             android:drawableStart="@drawable/ic_register_number"
             android:drawablePadding="10dp"
             android:hint="@string/editText_hint_register_number"
-            android:inputType="text"
+            android:inputType="textCapCharacters"
+            android:maxLength="14"
             android:padding="15dp"
             android:textColor="@color/white"
             android:textColorHighlight="@color/white"
@@ -65,7 +66,12 @@
             android:textColorHighlight="@color/white"
             android:textColorHint="@color/white" />
 
-
+<ProgressBar
+    android:id="@+id/SignUpProgressBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

@@ -33,6 +33,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
     CheckBox sem1, sem2, sem3, sem4, sem5, sem6;
     EditText sem1cgpa, sem1dop, sem2cgpa, sem2dop, sem3cgpa, sem3dop, sem4cgpa, sem4dop, sem5cgpa, sem5dop, sem6cgpa, sem6dop;
     TextView tvsem1, tvsem2, tvsem3, tvsem4, tvsem5, tvsem6;
+    TextView tvdopsem1, tvdopsem2, tvdopsem3, tvdopsem4, tvdopsem5, tvdopsem6;
     public FirebaseAuth mAuth;
     public FirebaseFirestore db;
     public DatabaseReference mDatabase;
@@ -48,12 +49,25 @@ public class AcademicDetailsActivity extends AppCompatActivity {
         tvsem4 = findViewById(R.id.AcademicSem4CgpaTextView);
         tvsem5 = findViewById(R.id.AcademicSem5CgpaTextView);
         tvsem6 = findViewById(R.id.AcademicSem6CgpaTextView);
+        tvdopsem1 = findViewById(R.id.AcademicDOPTExtView);
+        tvdopsem2 = findViewById(R.id.AcademicSem2DOPTExtView);
+        tvdopsem3 = findViewById(R.id.AcademicSem3DOPTExtView);
+        tvdopsem4 = findViewById(R.id.AcademicSem4DOPTExtView);
+        tvdopsem5 = findViewById(R.id.AcademicSem5DOPTExtView);
+        tvdopsem6 = findViewById(R.id.AcademicSem6DOPTExtView);
+
         tvsem1.setVisibility(View.GONE);
         tvsem2.setVisibility(View.GONE);
         tvsem3.setVisibility(View.GONE);
         tvsem4.setVisibility(View.GONE);
         tvsem5.setVisibility(View.GONE);
         tvsem6.setVisibility(View.GONE);
+        tvdopsem1.setVisibility(View.GONE);
+        tvdopsem2.setVisibility(View.GONE);
+        tvdopsem3.setVisibility(View.GONE);
+        tvdopsem4.setVisibility(View.GONE);
+        tvdopsem5.setVisibility(View.GONE);
+        tvdopsem6.setVisibility(View.GONE);
 
 
         sem1cgpa = findViewById(R.id.AcademicSem1Cgpa);
@@ -112,6 +126,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem1dop.setEnabled(true);
                     sem1dop.setVisibility(v.VISIBLE);
                     tvsem1.setVisibility(v.VISIBLE);
+                    tvdopsem1.setVisibility(v.VISIBLE);
 
                 } else {
                     //CODE TO MAKE THE EDITTEXT DISABLED
@@ -120,6 +135,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem1dop.setEnabled(false);
                     sem1dop.setVisibility(v.GONE);
                     tvsem1.setVisibility(v.GONE);
+                    tvdopsem1.setVisibility(v.GONE);
                 }
 
             }
@@ -136,6 +152,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem2dop.setEnabled(true);
                     sem2.setVisibility(v.VISIBLE);
                     tvsem2.setVisibility(v.VISIBLE);
+                    tvdopsem2.setVisibility(v.VISIBLE);
                 } else {
                     //CODE TO MAKE THE EDITTEXT DISABLED
                     sem2cgpa.setEnabled(false);
@@ -143,6 +160,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem2dop.setEnabled(false);
                     sem2dop.setVisibility(v.GONE);
                     tvsem2.setVisibility(v.GONE);
+                    tvdopsem2.setVisibility(v.GONE);
                 }
 
             }
@@ -159,6 +177,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem3dop.setEnabled(true);
                     sem3.setVisibility(v.VISIBLE);
                     tvsem3.setVisibility(v.VISIBLE);
+                    tvdopsem3.setVisibility(v.VISIBLE);
                 } else {
                     //CODE TO MAKE THE EDITTEXT DISABLED
                     sem3cgpa.setEnabled(false);
@@ -166,6 +185,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem3dop.setEnabled(false);
                     sem3dop.setVisibility(v.GONE);
                     tvsem3.setVisibility(v.GONE);
+                    tvdopsem3.setVisibility(v.GONE);
                 }
 
             }
@@ -182,6 +202,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem4dop.setEnabled(true);
                     sem4.setVisibility(v.VISIBLE);
                     tvsem4.setVisibility(v.VISIBLE);
+                    tvdopsem4.setVisibility(v.VISIBLE);
 
                 } else {
                     //CODE TO MAKE THE EDITTEXT DISABLED
@@ -190,6 +211,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem4dop.setEnabled(false);
                     sem4dop.setVisibility(v.GONE);
                     tvsem4.setVisibility(v.GONE);
+                    tvdopsem4.setVisibility(v.GONE);
                 }
 
             }
@@ -206,6 +228,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem5dop.setEnabled(true);
                     sem5.setVisibility(v.VISIBLE);
                     tvsem5.setVisibility(v.VISIBLE);
+                    tvdopsem5.setVisibility(v.VISIBLE);
                 } else {
                     //CODE TO MAKE THE EDITTEXT DISABLED
                     sem5cgpa.setEnabled(false);
@@ -213,6 +236,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem5dop.setEnabled(false);
                     sem5dop.setVisibility(v.GONE);
                     tvsem5.setVisibility(v.GONE);
+                    tvdopsem5.setVisibility(v.GONE);
                 }
 
             }
@@ -229,6 +253,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem6dop.setEnabled(true);
                     sem6.setVisibility(v.VISIBLE);
                     tvsem6.setVisibility(v.VISIBLE);
+                    tvdopsem6.setVisibility(v.VISIBLE);
 
                 } else {
                     //CODE TO MAKE THE EDITTEXT DISABLED
@@ -237,6 +262,7 @@ public class AcademicDetailsActivity extends AppCompatActivity {
                     sem6dop.setEnabled(false);
                     sem6dop.setVisibility(v.GONE);
                     tvsem6.setVisibility(v.GONE);
+                    tvdopsem6.setVisibility(v.GONE);
                 }
 
             }

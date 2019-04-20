@@ -58,6 +58,43 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334370877838:android:767f9b071950f4e4",
+        "android_client_info": {
+          "package_name": "com.inducesmile.firestoreexample"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334370877838-ov8a6j2bog2hasghiofr5q555mqfk1fe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.inducesmile.firestoreexample",
+            "certificate_hash": "1911663caee32741e3e97e007047cccf6e8b8bfd"
+          }
+        },
+        {
+          "client_id": "334370877838-oca129gsiun8scrivjpco6r2q54qvi4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtWB6YKrufjD-s_2Zd4gDPw6wp2hYCWBg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334370877838-oca129gsiun8scrivjpco6r2q54qvi4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

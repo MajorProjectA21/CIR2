@@ -12,28 +12,34 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 
 public class ProfileNavActivity extends AppCompatActivity
@@ -43,27 +49,38 @@ public class ProfileNavActivity extends AppCompatActivity
     public DrawerLayout drawer;
     public NavigationView navigationView;
     public Toolbar toolbar = null;
+    Boolean flagFullName, flagFathersName, flagPAddress, flagPhone;
 
     public FirebaseFirestore db;
-    public DatabaseReference mDatabase;
 
+Button btUpdate,btSave,btAcademic;
     EditText etFullName, etDOB, etAge, etFathersName, etPAddress, etPhone;
     Spinner spinGender, spinMarital, spinBloodGrp, spinNationality, spinReligion;
-
+    ArrayAdapter<String> arrayAdapterGender, arrayAdapterMarital, arrayAdapterBloodGrp, arrayAdapterNationality, arrayAdapterReligion;
     Calendar myCalendar;
+
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_nav);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         this.overridePendingTransition(0, 0);
 
-        myCalendar= Calendar.getInstance();
+        btSave =findViewById(R.id.ProfileActivitySaveButton);
+        btUpdate =findViewById(R.id.ProfileActivityUpdateButton);
+        btAcademic =findViewById(R.id.ProfileActivityAcademicButton);
+        progressBar = findViewById(R.id.ProfileProgressBar);
+        progressBar.setVisibility(View.INVISIBLE);
+
+        myCalendar = Calendar.getInstance();
         setTitle("Profile");
 
         etFullName = findViewById(R.id.profileFullNameEditText);
+        flagFullName = false;
         etDOB = findViewById(R.id.profileDateOfBirthEditText);
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -74,7 +91,7 @@ public class ProfileNavActivity extends AppCompatActivity
 //                myCalendar.set(Calendar.YEAR, year);
 //                myCalendar.set(Calendar.MONTH, monthOfYear);
 //                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                myCalendar.set(year,monthOfYear,dayOfMonth);
+                myCalendar.set(year, monthOfYear, dayOfMonth);
                 updateLabel();
             }
 
@@ -91,11 +108,15 @@ public class ProfileNavActivity extends AppCompatActivity
             }
         });
         etAge = findViewById(R.id.profileAgeEditText);
+        etAge.setEnabled(false);
 
 
         etFathersName = findViewById(R.id.profileFathersNameEditText);
+        flagFathersName = false;
         etPAddress = findViewById(R.id.profileAddressEditText);
+        flagPAddress = false;
         etPhone = findViewById(R.id.profilePhoneNumberEditText);
+        flagPhone = false;
 
         drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -107,38 +128,249 @@ public class ProfileNavActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         spinGender = findViewById(R.id.profileGenderId);
-        ArrayAdapter<String> arrayAdapterGender = new ArrayAdapter<String>(ProfileNavActivity.this,
+        arrayAdapterGender = new ArrayAdapter<String>(ProfileNavActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.genderArray));
         arrayAdapterGender.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinGender.setAdapter(arrayAdapterGender);
 
         spinMarital = findViewById(R.id.profileMaritalId);
-        ArrayAdapter<String> arrayAdapterMarital = new ArrayAdapter<String>(ProfileNavActivity.this,
+        arrayAdapterMarital = new ArrayAdapter<String>(ProfileNavActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.MaritalArray));
         arrayAdapterMarital.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinMarital.setAdapter(arrayAdapterMarital);
 
         spinBloodGrp = findViewById(R.id.profileBloodGrpId);
-        ArrayAdapter<String> arrayAdapterBloodGrp = new ArrayAdapter<String>(ProfileNavActivity.this,
+        arrayAdapterBloodGrp = new ArrayAdapter<String>(ProfileNavActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.BloodGrpArray));
         arrayAdapterBloodGrp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinBloodGrp.setAdapter(arrayAdapterBloodGrp);
 
         spinNationality = findViewById(R.id.profileNationalityId);
-        ArrayAdapter<String> arrayAdapterNationality = new ArrayAdapter<String>(ProfileNavActivity.this,
+        arrayAdapterNationality = new ArrayAdapter<String>(ProfileNavActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.NationalityArray));
         arrayAdapterNationality.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinNationality.setAdapter(arrayAdapterNationality);
 
         spinReligion = findViewById(R.id.profileReligionId);
-        ArrayAdapter<String> arrayAdapterReligion = new ArrayAdapter<String>(ProfileNavActivity.this,
+        arrayAdapterReligion = new ArrayAdapter<String>(ProfileNavActivity.this,
                 android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ReligionArray));
         arrayAdapterReligion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinReligion.setAdapter(arrayAdapterReligion);
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference("UserEmailRegistrationTable");
+        //validation();
+        fetchRegistrationId();
+
+    }
+
+    public void getDataFromDatabase() {
+
+
+        progressBar.setVisibility(View.VISIBLE);
+        try {
+
+            String regno = user.getRegisterNumber();
+            DocumentReference docRef = db.collection("Student_Profile_Details").document(regno);
+//            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//                @Override
+//                public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                    studentProfileDetails st = documentSnapshot.toObject(studentProfileDetails.class);
+//                    if(st!=null){
+//
+//                        etFullName.setText(st.getFullName());
+//                        etDOB.setText(st.getDOB());
+//                        etAge.setText(st.getAge());
+//                        etFathersName.setText(st.getFathersName());
+//                        etPAddress.setText(st.getAddress());
+//                        etPhone.setText(st.getPhone_Number());
+//
+//                        int spinnerPosition;
+//
+//                        spinnerPosition = arrayAdapterGender.getPosition(st.getGender());
+//                        spinGender.setSelection(spinnerPosition);
+//
+//                        spinnerPosition = arrayAdapterMarital.getPosition(st.getMartial_Status());
+//                        spinMarital.setSelection(spinnerPosition);
+//
+//                        spinnerPosition = arrayAdapterBloodGrp.getPosition(st.getBloodgrp());
+//                        spinBloodGrp.setSelection(spinnerPosition);
+//
+//                        spinnerPosition = arrayAdapterNationality.getPosition(st.getNationality());
+//                        spinNationality.setSelection(spinnerPosition);
+//
+//                        spinnerPosition = arrayAdapterReligion.getPosition(st.getReligion());
+//                        spinReligion.setSelection(spinnerPosition);
+//                        progressBar.setVisibility(View.INVISIBLE);
+//
+//                    }
+//                }
+//            })
+//                    .addOnFailureListener(new OnFailureListener() {
+//                        @Override
+//                        public void onFailure(@NonNull Exception e) {
+//                            validation();
+//                            progressBar.setVisibility(View.INVISIBLE);
+//                        }
+//                    });
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            studentProfileDetails st = document.toObject(studentProfileDetails.class);
+                            if (st != null) {
+                                etFullName.setText(st.getFullName());
+                                etDOB.setText(st.getDOB());
+                                etAge.setText(st.getAge());
+                                etFathersName.setText(st.getFathersName());
+                                etPAddress.setText(st.getAddress());
+                                etPhone.setText(st.getPhone_Number());
+
+                                etFullName.setEnabled(false);
+                                etDOB.setEnabled(false);
+                                etAge.setEnabled(false);
+                                etFathersName.setEnabled(false);
+                                etPAddress.setEnabled(false);
+                                etPhone.setEnabled(false);
+                                int spinnerPosition;
+
+                                spinnerPosition = arrayAdapterGender.getPosition(st.getGender());
+                                spinGender.setSelection(spinnerPosition);
+
+                                spinnerPosition = arrayAdapterMarital.getPosition(st.getMartial_Status());
+                                spinMarital.setSelection(spinnerPosition);
+
+                                spinnerPosition = arrayAdapterBloodGrp.getPosition(st.getBloodgrp());
+                                spinBloodGrp.setSelection(spinnerPosition);
+
+                                spinnerPosition = arrayAdapterNationality.getPosition(st.getNationality());
+                                spinNationality.setSelection(spinnerPosition);
+
+                                spinnerPosition = arrayAdapterReligion.getPosition(st.getReligion());
+                                spinReligion.setSelection(spinnerPosition);
+                                progressBar.setVisibility(View.INVISIBLE);
+
+                                spinGender.setEnabled(false);
+                                spinBloodGrp.setEnabled(false);
+                                spinMarital.setEnabled(false);
+                                spinNationality.setEnabled(false);
+                                spinReligion.setEnabled(false);
+
+                                btUpdate.setEnabled(true);
+                                btUpdate.setBackgroundResource(R.drawable.shapesignup);
+                                btSave.setEnabled(false);
+                                btSave.setBackgroundResource(R.drawable.shapebuttondisabled);
+
+                            }
+                        } else {
+                            //Log.d(TAG, "No such document");
+                            validation();
+                            progressBar.setVisibility(View.INVISIBLE);
+                            btUpdate.setEnabled(false);
+                            btUpdate.setBackgroundResource(R.drawable.shapebuttondisabled);
+                            btSave.setEnabled(true);
+                            btSave.setBackgroundResource(R.drawable.shapesignup);
+                        }
+                    } else {
+                        validation();
+                        progressBar.setVisibility(View.INVISIBLE);
+                        //Log.d(TAG, "get failed with ", task.getException());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(ProfileNavActivity.this, "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
+            progressBar.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void validation() {
+        etFullName.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                String arg = s.toString();
+                if (!Pattern.matches("^[a-zA-Z\\s]*$", arg)) {
+                    etFullName.setError("No Special characters allowed");
+                    return;
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+            }
+        });
+
+        etFathersName.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                String arg = s.toString();
+                if (!Pattern.matches("^[a-zA-Z\\s]*$", arg)) {
+                    etFathersName.setError("No Special characters allowed");
+                    return;
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+            }
+        });
+
+        etPAddress.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                String arg = s.toString();
+                if (!Pattern.matches("^[a-zA-Z0-9\\s]*$", arg)) {
+                    etPAddress.setError("No Special characters allowed");
+                    return;
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+            }
+        });
+
+        etPhone.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                String arg = s.toString();
+                if (!Patterns.PHONE.matcher(arg).matches()) {
+                    etPhone.setError("Enter valid Mobile Number");
+                    return;
+                }
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                String phone = etPhone.getText().toString();
+                if (phone.isEmpty()) {
+                    etPhone.setError("Enter valid Mobile Number(10 digits)");
+                }
+            }
+        });
+
     }
 
     @Override
@@ -150,6 +382,7 @@ public class ProfileNavActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
     private void updateLabel() {
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -260,7 +493,7 @@ public class ProfileNavActivity extends AppCompatActivity
         spinReligion.setEnabled(true);
     }
 
-    public void saveButtonEvent(View view){
+    public void saveButtonEvent(View view) {
         String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
         sFullName = etFullName.getText().toString();
         sAge = etAge.getText().toString();
@@ -273,7 +506,57 @@ public class ProfileNavActivity extends AppCompatActivity
         sBloodgrp = spinBloodGrp.getSelectedItem().toString();
         sNationality = spinNationality.getSelectedItem().toString();
         sReligion = spinReligion.getSelectedItem().toString();
+        try {
+            if (sFullName.isEmpty()) {
+                etFullName.setError("Please enter Name");
+                etFullName.requestFocus();
+                return;
+            }
+            if (sFathersName.isEmpty()) {
+                etFathersName.setError("Please enter Father's Name");
+                etFathersName.requestFocus();
+                return;
+            }
+            if (sPAddress.isEmpty()) {
+                etPAddress.setError("Please enter Address");
+                etPAddress.requestFocus();
+                return;
+            }
+            if (sPhone.isEmpty()) {
+                etPhone.setError("Please enter Mobile Number");
+                etPhone.requestFocus();
+                return;
+            }
+            if (sPhone.length() < 10) {
+                etPhone.setError("Please 10 digit Mobile Number");
+                etPhone.requestFocus();
+                return;
+            }
+            if (Integer.valueOf(sAge) <= 17) {
+                etDOB.setError("Age less than 17");
+                etDOB.requestFocus();
+                return;
+            }
+            if (!Pattern.matches("^[a-zA-Z0-9\\s]*$", sPAddress)) {
+                etPAddress.setError("No Special characters allowed");
+                return;
+            }
+            if (!Pattern.matches("^[a-zA-Z\\s]*$", sFathersName)) {
+                etFathersName.setError("No Special characters allowed");
+                return;
+            }
+            if (!Pattern.matches("^[a-zA-Z\\s]*$", sFullName)) {
+                etFullName.setError("No Special characters allowed");
+                return;
+            }
+            if (sdob.isEmpty()) {
+                Toast.makeText(ProfileNavActivity.this, "Enter Date of Birth", Toast.LENGTH_LONG).show();
+                etDOB.setError("Enter Date of Birth");
+                return;
+            }
+        } catch (Exception e) {
 
+        }
         try {
             etFullName.setEnabled(false);
             etDOB.setEnabled(false);
@@ -292,21 +575,23 @@ public class ProfileNavActivity extends AppCompatActivity
             spinReligion.setEnabled(false);
             addToDatabase(sFullName, sGender, sdob, sAge, sBloodgrp, sMartial, sFathersName, sPAddress, sReligion, sNationality, sPhone);
         } catch (Exception e) {
-            Toast.makeText(this,"Error:"+e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     public void addToDatabase(String fullName, String gender, String DOB, String age, String bloodgrp, String martial_Status, String fathersName, String address, String religion, String nationality, String phone_Number) {
         try {
+            progressBar.setVisibility(View.VISIBLE);
             studentProfileDetails stDetails = new studentProfileDetails(fullName, gender, DOB, age, bloodgrp, martial_Status, fathersName, address, religion, nationality, phone_Number);
-            fetchRegistrationId();
+            //fetchRegistrationId();
             String regno = user.getRegisterNumber();
-            db.collection("Personal_Details").document(regno).set(stDetails)
+            db.collection("Student_Profile_Details").document(regno).set(stDetails)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
                             Toast.makeText(ProfileNavActivity.this, "User Registered",
                                     Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -315,53 +600,53 @@ public class ProfileNavActivity extends AppCompatActivity
                             Toast.makeText(ProfileNavActivity.this, "ERROR" + e.toString(),
                                     Toast.LENGTH_SHORT).show();
                             Log.d("TAG", e.toString());
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                     });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(ProfileNavActivity.this,"Error"+e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(ProfileNavActivity.this, "Error" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
     private void getAge() {
 
-            Calendar dob = myCalendar;
-            Calendar today = Calendar.getInstance();
+        Calendar dob = myCalendar;
+        Calendar today = Calendar.getInstance();
 
-            //dob.set(year, month, day);
+        //dob.set(year, month, day);
 
-            int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
-            if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
-                age--;
-            }
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
 
-            Integer ageInt = new Integer(age);
+        Integer ageInt = new Integer(age);
 
-            String ageS = ageInt.toString();
-            etAge.setText(ageS);
+        String ageS = ageInt.toString();
+        etAge.setText(ageS);
     }
 
     public void fetchRegistrationId() {
         try {
-            mDatabase.child(mAuth.getUid()).addValueEventListener(new ValueEventListener() {
+            DocumentReference docRef = db.collection("User_ID_Registration_ID").document(mAuth.getUid());
+            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    user = dataSnapshot.getValue(User.class);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {
-                    Toast.makeText(ProfileNavActivity.this,"Failed to read data"+ error.getMessage(),Toast.LENGTH_LONG).show();
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    user = documentSnapshot.toObject(User.class);
+                    getDataFromDatabase();
                 }
             });
+
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(ProfileNavActivity.this,"Failed to read data"+ e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(ProfileNavActivity.this, "Failed to read data" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }
-    public void AcademicButtonClick(View view){
+
+    public void AcademicButtonClick(View view) {
         Intent intent = new Intent(ProfileNavActivity.this, AcademicDetailsActivity.class);
         startActivity(intent);
         finish();

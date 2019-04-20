@@ -40,14 +40,10 @@ public class QuizActivity extends AppCompatActivity {
         bOption3 = findViewById(R.id.button3);
         bOption4 = findViewById(R.id.button4);
         updateQuestion();
-
-
-
-
     }
 
-    public void updateQuestion() {
-
+    public void updateQuestion()
+    {
         total++;
         if (total > 6) {//total no of questions
             Intent intent = new Intent(QuizActivity.this, quizResultActivity.class);

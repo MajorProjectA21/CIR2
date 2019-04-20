@@ -8,6 +8,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ProfileNavActivity">
     <!--tools:showIn="@layout/activity_profile_nav">-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,10 +17,18 @@
         android:background="#80000000"
         android:orientation="vertical"
         android:paddingLeft="25sp"
-        android:paddingTop="56sp"
+        android:paddingTop="60sp"
         android:paddingRight="25sp"
         android:paddingBottom="25sp">
-
+        <ProgressBar
+            android:id="@+id/ProfileProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminate="true"
+            android:max="100"
+            android:backgroundTint="@color/white"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,9 +118,9 @@
                 android:id="@+id/profileAgeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:inputType="none"
                 android:layout_marginLeft="10sp"
-                android:clickable="true"
+                android:clickable="false"
                 android:background="@drawable/edittextrectangle"
                 android:textColor="#000102"
                 android:textSize="20sp" />
@@ -268,6 +277,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
+            android:maxLength="10"
             android:background="@drawable/edittextrectangle"
             android:textColor="#000102"
             android:textSize="20sp" />
@@ -280,13 +290,16 @@
 
             >
             <Button
+                android:id="@+id/ProfileActivityUpdateButton"
                 android:text="Update"
                 android:layout_width="145sp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shapelogin"
+                android:background="@drawable/shapebuttondisabled"
                 android:onClick="updateButtonEvent"
+                android:textColor="@color/white"
                 />
             <Button
+                android:id="@+id/ProfileActivitySaveButton"
                 android:layout_width="match_parent"
                 android:textColor="@color/white"
                 android:layout_height="wrap_content"
@@ -304,6 +317,7 @@
 
             >
             <Button
+                android:id="@+id/ProfileActivityAcademicButton"
                 android:text="Academic Details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

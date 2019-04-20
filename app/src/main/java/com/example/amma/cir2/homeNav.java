@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -15,16 +16,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+
+import java.util.List;
 
 public class homeNav extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String TAG ="" ;
     private FirebaseAuth mAuth;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar = null;
+    TextView textView;
+    Button button;
+    FirebaseAuth fbAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +47,11 @@ public class homeNav extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("Home");
 
+        textView = findViewById(R.id.home_nav_textView);
+        button = findViewById(R.id.home_nav_button);
+
         mAuth = FirebaseAuth.getInstance();
+        fbAuth = FirebaseAuth.getInstance();
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -47,6 +63,19 @@ public class homeNav extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+    public void onclickButton(View view){
+        FirebaseUser user = fbAuth.getCurrentUser();
+
+        List<? extends UserInfo> providerData = user.getProviderData();
+        String size = String.valueOf(providerData.size());
+        textView.setText(size);
+        for (UserInfo userInfo : providerData ) {
+
+            String providerId = userInfo.getProviderId();
+            Log.d(TAG, "providerId = " + providerId);
+            //textView.setText(providerId);
+        }
+    }
     @Override
     public void onBackPressed() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
