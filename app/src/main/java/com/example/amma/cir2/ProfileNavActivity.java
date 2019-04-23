@@ -165,54 +165,10 @@ Button btUpdate,btSave,btAcademic;
     }
 
     public void getDataFromDatabase() {
-
-
         progressBar.setVisibility(View.VISIBLE);
         try {
-
             String regno = user.getRegisterNumber();
             DocumentReference docRef = db.collection("Student_Profile_Details").document(regno);
-//            docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//                @Override
-//                public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                    studentProfileDetails st = documentSnapshot.toObject(studentProfileDetails.class);
-//                    if(st!=null){
-//
-//                        etFullName.setText(st.getFullName());
-//                        etDOB.setText(st.getDOB());
-//                        etAge.setText(st.getAge());
-//                        etFathersName.setText(st.getFathersName());
-//                        etPAddress.setText(st.getAddress());
-//                        etPhone.setText(st.getPhone_Number());
-//
-//                        int spinnerPosition;
-//
-//                        spinnerPosition = arrayAdapterGender.getPosition(st.getGender());
-//                        spinGender.setSelection(spinnerPosition);
-//
-//                        spinnerPosition = arrayAdapterMarital.getPosition(st.getMartial_Status());
-//                        spinMarital.setSelection(spinnerPosition);
-//
-//                        spinnerPosition = arrayAdapterBloodGrp.getPosition(st.getBloodgrp());
-//                        spinBloodGrp.setSelection(spinnerPosition);
-//
-//                        spinnerPosition = arrayAdapterNationality.getPosition(st.getNationality());
-//                        spinNationality.setSelection(spinnerPosition);
-//
-//                        spinnerPosition = arrayAdapterReligion.getPosition(st.getReligion());
-//                        spinReligion.setSelection(spinnerPosition);
-//                        progressBar.setVisibility(View.INVISIBLE);
-//
-//                    }
-//                }
-//            })
-//                    .addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            validation();
-//                            progressBar.setVisibility(View.INVISIBLE);
-//                        }
-//                    });
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -491,9 +447,13 @@ Button btUpdate,btSave,btAcademic;
         spinBloodGrp.setEnabled(true);
         spinNationality.setEnabled(true);
         spinReligion.setEnabled(true);
+        btUpdate.setEnabled(false);
+        btSave.setEnabled(true);
     }
 
     public void saveButtonEvent(View view) {
+        btUpdate.setEnabled(true);
+        btSave.setEnabled(false);
         String sFullName, sdob, sAge, sFathersName, sPAddress, sPhone, sGender, sMartial, sBloodgrp, sNationality, sReligion;
         sFullName = etFullName.getText().toString();
         sAge = etAge.getText().toString();
@@ -583,7 +543,6 @@ Button btUpdate,btSave,btAcademic;
         try {
             progressBar.setVisibility(View.VISIBLE);
             studentProfileDetails stDetails = new studentProfileDetails(fullName, gender, DOB, age, bloodgrp, martial_Status, fathersName, address, religion, nationality, phone_Number);
-            //fetchRegistrationId();
             String regno = user.getRegisterNumber();
             db.collection("Student_Profile_Details").document(regno).set(stDetails)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -613,17 +572,12 @@ Button btUpdate,btSave,btAcademic;
 
         Calendar dob = myCalendar;
         Calendar today = Calendar.getInstance();
-
-        //dob.set(year, month, day);
-
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
 
         if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
-
         Integer ageInt = new Integer(age);
-
         String ageS = ageInt.toString();
         etAge.setText(ageS);
     }

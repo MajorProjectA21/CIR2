@@ -1,10 +1,10 @@
 package com.example.amma.cir2;
 
-public class studentAcademicDetails {
+public class studentHiherSecondaryMarks {
     private String rollNo, percentage, DOP, board;
-    public studentAcademicDetails(){}
+    public studentHiherSecondaryMarks(){}
 
-    public studentAcademicDetails(String rollNo, String percentage, String DOP, String board) {
+    public studentHiherSecondaryMarks(String rollNo, String percentage, String DOP, String board) {
         this.rollNo = rollNo;
         this.percentage = percentage;
         this.DOP = DOP;

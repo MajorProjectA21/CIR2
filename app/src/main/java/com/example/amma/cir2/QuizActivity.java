@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 public class QuizActivity extends AppCompatActivity {
     DatabaseReference database;
     TextView tvQuestion, tvTime, tvCountQuestion;
@@ -44,12 +46,15 @@ public class QuizActivity extends AppCompatActivity {
 
     public void updateQuestion()
     {
+        String date = String.valueOf(android.text.format.DateFormat.format("dd-MM-yyyy", new java.util.Date()));
+        Toast.makeText(QuizActivity.this,"Date:"+date,Toast.LENGTH_LONG).show();
         total++;
         if (total > 6) {//total no of questions
             Intent intent = new Intent(QuizActivity.this, quizResultActivity.class);
             intent.putExtra("total", String.valueOf(total));
             intent.putExtra("correct", String.valueOf(correct));
             intent.putExtra("incorrect", String.valueOf(incorrect));
+            intent.putExtra("date",date);
             startActivity(intent);
 
 //result activity
@@ -113,6 +118,7 @@ public class QuizActivity extends AppCompatActivity {
                                     }
                                 }, 1500);
                             }
+
                         }
                     });
                     //button2 click
@@ -160,6 +166,7 @@ public class QuizActivity extends AppCompatActivity {
                                     }
                                 }, 1500);
                             }
+
                         }
                     });
                     //button 3
@@ -203,6 +210,7 @@ public class QuizActivity extends AppCompatActivity {
                                     }
                                 }, 1500);
                             }
+
                         }
                     });
                     //button 4
@@ -245,6 +253,7 @@ public class QuizActivity extends AppCompatActivity {
                                     }
                                 }, 1500);
                             }
+
                         }
                     });
 

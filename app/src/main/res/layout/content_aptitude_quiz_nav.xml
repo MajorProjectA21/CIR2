@@ -6,12 +6,14 @@
     android:layout_height="match_parent"
     android:background="@mipmap/wallpaper"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:padding="16dp"
+
     tools:context=".AptitudeQuizNavActivity">
 <LinearLayout
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:layout_gravity="bottom"
+    android:background="#59000000"
     >
     <TextView
         android:layout_width="wrap_content"
@@ -20,27 +22,72 @@
         android:layout_marginTop="150dp"
         android:text="Aptitude Quiz"
         android:textColor="@android:color/white"
+        android:background="#56000000"
         android:textSize="35sp" />
-
-    <TextView
-        android:id="@+id/text_view_highscore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="32dp"
-        android:text="Highscore: 0"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="50dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginBottom="250dp">
     <Button
         android:id="@+id/button_start_quiz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Start Quiz"
+        android:text="Easy"
+        android:textColor="@color/white"
         android:padding="5sp"
         android:onClick="onClickStartQuiz"
-        android:background="@drawable/shapelogin"/>
+        android:background="@drawable/shapeeasy"
+        android:layout_margin="5dp"/>
+    <Button
+        android:id="@+id/button_medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Medium"
+        android:textColor="@color/white"
+        android:padding="5sp"
+        android:onClick="onClickStartQuiz"
+        android:background="@drawable/shapemedium"
+        android:layout_margin="5dp"/>
+    <Button
+        android:id="@+id/button_hard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Hard"
+        android:textColor="@color/white"
+        android:padding="5sp"
+        android:onClick="onClickStartQuiz"
+        android:background="@drawable/shapehard"
+        android:layout_margin="5dp"/>
+
+
 </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#59000000"
+        android:layout_gravity="bottom"
+        android:orientation="vertical">
+        <Button
+            android:drawableStart="@drawable/ic_statistics"
+            android:drawableEnd="@drawable/ic_statistics"
+            android:id="@+id/button_statistics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="Statistics"
+            android:padding="5sp"
+            android:textColor="@color/white"
+            android:onClick="onClickShowStatistics"
+            android:background="#59000000"
+            android:layout_margin="5dp"/>
+    </LinearLayout>
+</LinearLayout>
+
+
 </ScrollView>

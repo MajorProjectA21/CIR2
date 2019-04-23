@@ -150,4 +150,8 @@ public class AptitudeQuizNavActivity extends AppCompatActivity
         Intent intent = new Intent(AptitudeQuizNavActivity.this,QuizActivity.class);
         startActivity(intent);
     }
+    public void onClickShowStatistics(View view){
+        Intent intent = new Intent(AptitudeQuizNavActivity.this,StatisticsQuizActivity.class);
+        startActivity(intent);
+    }
 }
