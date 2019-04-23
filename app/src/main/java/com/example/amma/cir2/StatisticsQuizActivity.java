@@ -71,7 +71,7 @@ public class StatisticsQuizActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(StatisticsQuizActivity.this, "Failed to read data" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        Toast.makeText(StatisticsQuizActivity.this, "error", Toast.LENGTH_LONG).show();
+      //  Toast.makeText(StatisticsQuizActivity.this, "error", Toast.LENGTH_LONG).show();
     }
 
     public void callArrayAdapter() {

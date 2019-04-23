@@ -53,6 +53,7 @@ public class ProfileNavActivity extends AppCompatActivity
 
     public FirebaseFirestore db;
 
+
 Button btUpdate,btSave,btAcademic;
     EditText etFullName, etDOB, etAge, etFathersName, etPAddress, etPhone;
     Spinner spinGender, spinMarital, spinBloodGrp, spinNationality, spinReligion;
@@ -70,6 +71,9 @@ Button btUpdate,btSave,btAcademic;
         setSupportActionBar(toolbar);
         this.overridePendingTransition(0, 0);
 
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
         btSave =findViewById(R.id.ProfileActivitySaveButton);
         btUpdate =findViewById(R.id.ProfileActivityUpdateButton);
         btAcademic =findViewById(R.id.ProfileActivityAcademicButton);
@@ -78,7 +82,7 @@ Button btUpdate,btSave,btAcademic;
 
         myCalendar = Calendar.getInstance();
         setTitle("Profile");
-
+        fetchRegistrationId();
         etFullName = findViewById(R.id.profileFullNameEditText);
         flagFullName = false;
         etDOB = findViewById(R.id.profileDateOfBirthEditText);
@@ -157,10 +161,9 @@ Button btUpdate,btSave,btAcademic;
         arrayAdapterReligion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinReligion.setAdapter(arrayAdapterReligion);
 
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
+
         //validation();
-        fetchRegistrationId();
+
 
     }
 

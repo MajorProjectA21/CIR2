@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:text="NO:"
             />
 </LinearLayout>
@@ -47,6 +48,7 @@
                     android:layout_height="wrap_content"
                     android:text="Date:"
                     android:textSize="19dp"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     />
 
@@ -56,6 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
                     android:textSize="18dp"
                     android:text="dd/mm/yyyy"
                     android:textStyle="italic"/>
@@ -72,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Total Questions:"
+                    android:textColor="@color/white"
                     android:textSize="19dp"
                     android:textStyle="bold"/>
 
@@ -81,6 +85,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:textSize="19dp"
+                    android:textColor="@color/white"
                     android:textStyle="italic"
                     android:text="----" />
             </LinearLayout>
@@ -96,6 +101,7 @@
                     android:layout_height="wrap_content"
                     android:text="Correct Answers:"
                     android:textSize="19dp"
+                    android:textColor="@color/white"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -103,6 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
+                    android:textColor="@color/white"
                     android:textSize="19dp"
                     android:textStyle="italic"
                     android:text="----" />
@@ -119,6 +126,7 @@
                     android:layout_height="wrap_content"
                     android:text="Wrong Answers:"
                     android:textSize="19dp"
+                    android:textColor="@color/white"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -128,6 +136,7 @@
                     android:layout_marginStart="15dp"
                     android:textSize="19dp"
                     android:textStyle="italic"
+                    android:textColor="@color/white"
                     android:text="----" />
             </LinearLayout>
         </LinearLayout>

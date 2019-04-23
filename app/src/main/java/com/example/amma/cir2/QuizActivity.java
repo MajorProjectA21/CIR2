@@ -47,7 +47,6 @@ public class QuizActivity extends AppCompatActivity {
     public void updateQuestion()
     {
         String date = String.valueOf(android.text.format.DateFormat.format("dd-MM-yyyy", new java.util.Date()));
-        Toast.makeText(QuizActivity.this,"Date:"+date,Toast.LENGTH_LONG).show();
         total++;
         if (total > 6) {//total no of questions
             Intent intent = new Intent(QuizActivity.this, quizResultActivity.class);
