@@ -34,8 +34,7 @@ public class homeNav extends AppCompatActivity
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar = null;
-    TextView textView;
-    Button button;
+
     FirebaseAuth fbAuth;
 
     @Override
@@ -47,8 +46,7 @@ public class homeNav extends AppCompatActivity
         setSupportActionBar(toolbar);
         setTitle("Home");
 
-        textView = findViewById(R.id.home_nav_textView);
-        button = findViewById(R.id.home_nav_button);
+
 
         mAuth = FirebaseAuth.getInstance();
         fbAuth = FirebaseAuth.getInstance();
@@ -63,19 +61,7 @@ public class homeNav extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void onclickButton(View view){
-        FirebaseUser user = fbAuth.getCurrentUser();
 
-        List<? extends UserInfo> providerData = user.getProviderData();
-        String size = String.valueOf(providerData.size());
-        textView.setText(size);
-        for (UserInfo userInfo : providerData ) {
-
-            String providerId = userInfo.getProviderId();
-            Log.d(TAG, "providerId = " + providerId);
-            //textView.setText(providerId);
-        }
-    }
     @Override
     public void onBackPressed() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

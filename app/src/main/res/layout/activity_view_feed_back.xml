@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewUploadsActivity">
-<ProgressBar
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-    android:id="@+id/uploadsProgressbar"/>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:id="@+id/viewFeedbackProgressbar"/>
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/viewFeedBackListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

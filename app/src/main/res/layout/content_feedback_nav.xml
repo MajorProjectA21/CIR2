@@ -1,13 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@mipmap/back_li8"
     tools:context=".FeedbackNavActivity"
-    tools:showIn="@layout/app_bar_home_nav">
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_centerHorizontal="true"
+    android:padding="20dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="35dp">
 
+        <EditText
+            android:id="@+id/feedbackeditText"
+            android:layout_width="389dp"
+            android:layout_height="522dp"
+            android:background="#59000000"
+            android:ems="10"
+            android:gravity="start"
+            android:hint="Enter the Text Here..."
+            android:inputType="textMultiLine"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/feedbackButtonFeedback"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit FeedBAck"
+        android:onClick="saveToDatabase"/>
+        <Button
+            android:id="@+id/feedbackButtonViewFeedback"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View FeedBAck"
+            android:onClick="viewFeedback"/>
+    </LinearLayout>
+</LinearLayout>
 
 
 </RelativeLayout>

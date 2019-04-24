@@ -38,6 +38,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 
 public class AnnouncementNavActivity extends AppCompatActivity
@@ -58,7 +59,7 @@ public class AnnouncementNavActivity extends AppCompatActivity
     //the firebase objects for storage and database
     StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
-    String downloadUrl;
+    //String downloadUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,12 +99,23 @@ public class AnnouncementNavActivity extends AppCompatActivity
         try {
             //for greater than lolipop versions we need the permissions asked on runtime
             //so if the permission is not available user will go to the screen to allow storage permission
+            if (editTextFilename.getText().toString().isEmpty()) {
+                editTextFilename.setError("Please Enter a file Name");
+                return;
+            }
+            if (!Pattern.matches("^[a-zA-Z0-9\\s]*$", editTextFilename.getText().toString())) {
+                editTextFilename.setError("NoSplecial Characters Allowed");
+                return;
+            }
+
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED) {
                 Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                         Uri.parse("package:" + getPackageName()));
                 startActivity(intent);
+                Toast.makeText(AnnouncementNavActivity.this, "Please give Storage Permission", Toast.LENGTH_LONG).show();
                 return;
             }
             //creating an intent for file chooser
@@ -111,10 +123,12 @@ public class AnnouncementNavActivity extends AppCompatActivity
             intent.setType("application/pdf");
             intent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_PDF_CODE);
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
-            Toast.makeText(AnnouncementNavActivity.this,e.getMessage().toString(),Toast.LENGTH_LONG).show();
+            Toast.makeText(AnnouncementNavActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
+
     }
 
     @Override
@@ -133,7 +147,7 @@ public class AnnouncementNavActivity extends AppCompatActivity
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(AnnouncementNavActivity.this,e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(AnnouncementNavActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -161,11 +175,11 @@ public class AnnouncementNavActivity extends AppCompatActivity
                             progressBar.setVisibility(View.GONE);
                             textViewStatus.setText("File Uploaded Successfully");
                             Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                            while(!uri.isComplete());
+                            while (!uri.isComplete()) ;
                             Uri url = uri.getResult();
                             //Upload upload = new Upload(editTextFilename.getText().toString(), taskSnapshot.getDownloadUrl().toString());
-                          //  Upload upload = new Upload(editTextFilename.getText().toString(), Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString());
-                            Upload upload = new Upload(editTextFilename.getText().toString(),  url.toString());
+                            //  Upload upload = new Upload(editTextFilename.getText().toString(), Objects.requireNonNull(Objects.requireNonNull(taskSnapshot.getMetadata()).getReference()).getDownloadUrl().toString());
+                            Upload upload = new Upload(editTextFilename.getText().toString(), url.toString());
                             mDatabaseReference.child(mDatabaseReference.push().getKey()).setValue(upload);
                         }
                     })
@@ -185,7 +199,7 @@ public class AnnouncementNavActivity extends AppCompatActivity
                     });
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(AnnouncementNavActivity.this,"Error:"+e.getMessage(),Toast.LENGTH_LONG).show();
+            Toast.makeText(AnnouncementNavActivity.this, "Error:" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     }
