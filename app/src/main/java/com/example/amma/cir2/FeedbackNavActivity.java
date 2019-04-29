@@ -3,6 +3,8 @@ package com.example.amma.cir2;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +18,7 @@ import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +27,9 @@ import android.widget.Toast;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
@@ -44,9 +50,11 @@ public class FeedbackNavActivity extends AppCompatActivity
     FirebaseFirestore fb;
     DatabaseReference ref;
     FirebaseDatabase database;
+    ListView myListView;
 
     FloatingActionButton fab;
     ArrayList<String> arrayOfTime;
+    String regno;
 
 
     private FirebaseListAdapter<ChatMessage> adapter;
@@ -58,11 +66,12 @@ public class FeedbackNavActivity extends AppCompatActivity
         this.overridePendingTransition(0, 0);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Feedback");
+        setTitle("GroupChat");
 
         mAuth = FirebaseAuth.getInstance();
         fb = FirebaseFirestore.getInstance();
         database = FirebaseDatabase.getInstance();
+        myListView = (ListView)findViewById(R.id.list_of_messages);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         arrayOfTime = new ArrayList<String>();
@@ -77,21 +86,43 @@ public class FeedbackNavActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("chatsMessage");
+        db.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                displayChatMessages();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         displayChatMessages();
         fetchRegistrationId();
+        scrollMyListViewToBottom();
     }
     private void displayChatMessages() {
-        ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
+        final ListView listOfMessages = (ListView)findViewById(R.id.list_of_messages);
 
         try {
-//            Query query = FirebaseDatabase.getInstance().getReference();
-//            FirebaseListOptions<ChatMessage> options = new FirebaseListOptions.Builder<ChatMessage>()
-//                    .setQuery(query, ChatMessage.class)
-//                    .setLayout(R.layout.message)
-//                    .build();
-           // adapter = new FirebaseListAdapter<ChatMessage>(options)
             adapter = new FirebaseListAdapter<ChatMessage>(FeedbackNavActivity.this, ChatMessage.class,
-                    R.layout.message, FirebaseDatabase.getInstance().getReference())
+                    R.layout.message, FirebaseDatabase.getInstance().getReference("chatsMessage"))
             {
 
                 @Override
@@ -100,7 +131,10 @@ public class FeedbackNavActivity extends AppCompatActivity
                     TextView messageText = (TextView)v.findViewById(R.id.message_text);
                     TextView messageUser = (TextView)v.findViewById(R.id.message_user);
                     TextView messageTime = (TextView)v.findViewById(R.id.message_time);
+                    TextView messageUserOwn = v.findViewById(R.id.message_text_own);
                     messageTime.setVisibility(View.INVISIBLE);
+                    messageUserOwn.setVisibility(View.INVISIBLE);
+                    messageUser.setVisibility(View.INVISIBLE);
                     arrayOfTime.add(""+DateFormat.format("dd-MMM-yy", model.getMessageTime()));
                     if (position > 0) {
                         if (arrayOfTime.get(position).equalsIgnoreCase(arrayOfTime.get(position - 1))) {
@@ -111,29 +145,36 @@ public class FeedbackNavActivity extends AppCompatActivity
                     } else {
                         messageTime.setVisibility(View.VISIBLE);
                     }
+                    if(model.getMessageUser().equals(regno)){
+                        String mtext = model.getMessageText();
+                        String mtime = ""+DateFormat.format("hh:mm a",
+                                model.getMessageTime());
+                        String s = mtext +"&nbsp&nbsp&nbsp"+"<small>"+"<sub>" +mtime +"</sub>"+"</small>";
 
+                        messageUserOwn.setText(Html.fromHtml(s));
+                        messageUserOwn.setVisibility(View.VISIBLE);
+                        messageText.setVisibility(View.INVISIBLE);
 
-//                    if(!date.equals(DateFormat.format("dd-MMM-yy",
-//                            model.getMessageTime()))){
-//                        messageTime.setText(DateFormat.format("dd-MMM-yy",
-//                                model.getMessageTime()));
-//                        date = ""+DateFormat.format("dd-MMM-yy",
-//                                model.getMessageTime());
-//                        messageTime.setVisibility(View.VISIBLE);
-//                    }
-//                    else{
-//                        messageTime.setVisibility(View.INVISIBLE);
-//                    }
-                    // Set their text
-                    String mtext = model.getMessageText();
-                    String mtime = ""+DateFormat.format("hh:mm a",
-                            model.getMessageTime());
-                    String s = mtext +"&nbsp&nbsp&nbsp"+"<small>"+"<sub>" +mtime +"</sub>"+"</small>";
+                    }else {
+                        String mtext = model.getMessageText();
+                        String mtime = ""+DateFormat.format("hh:mm a",
+                                model.getMessageTime());
+                        String s = mtext +"&nbsp&nbsp&nbsp"+"<small>"+"<sub>" +mtime +"</sub>"+"</small>";
 
-                    messageText.setText(Html.fromHtml(s));
+                        messageText.setText(Html.fromHtml(s));
+                        messageText.setVisibility(View.VISIBLE);
+                        messageUserOwn.setVisibility(View.INVISIBLE);
+                    }
+
                     //messageText.setText(model.getMessageText());
                     //messageText.setText(mtext);
-                    messageUser.setText(model.getMessageUser());
+                    if(model.getMessageUser().equals(regno)){
+                        messageUser.setVisibility(View.INVISIBLE);
+
+                    }else {
+                        messageUser.setText(model.getMessageUser());
+                        messageUser.setVisibility(View.VISIBLE);
+                    }
 
                     // Format the date before showing it
                     messageTime.setText(DateFormat.format("dd-MMM-yy",
@@ -143,21 +184,36 @@ public class FeedbackNavActivity extends AppCompatActivity
             };
 
             listOfMessages.setAdapter(adapter);
+            //listOfMessages.setAdapter(adapter);
+
+
+
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this,e.getMessage(),Toast.LENGTH_LONG).show();
         }
     }
-
+    private void scrollMyListViewToBottom() {
+        myListView.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                myListView.setSelection(adapter.getCount() - 1);
+            }
+        });
+    }
     public void saveChatToDatabase(final String regNo) {
-        EditText input = (EditText)findViewById(R.id.input);
-        if(input.getText().toString().isEmpty()){
-            return;
-        }else {
+
+
             try {
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        EditText input1 = (EditText)findViewById(R.id.input);
+                        if(input1.getText().toString().isEmpty()){
+                            return;
+                        }
 
                         EditText input = (EditText) findViewById(R.id.input);
                         // Read the input field and push a new instance
@@ -171,7 +227,7 @@ public class FeedbackNavActivity extends AppCompatActivity
                                             .getDisplayName())
                             );*/
                         FirebaseDatabase.getInstance()
-                                .getReference()
+                                .getReference("chatsMessage")
                                 .push()
                                 .setValue(new ChatMessage(input.getText().toString(),
                                         regNo)
@@ -180,13 +236,14 @@ public class FeedbackNavActivity extends AppCompatActivity
                         // Clear the input
                         input.setText("");
                         displayChatMessages();
+                        //regno = regNo;
                     }
                 });
             } catch (Exception e) {
                 e.printStackTrace();
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }
+
     }
 
     public void fetchRegistrationId() {
@@ -197,6 +254,7 @@ public class FeedbackNavActivity extends AppCompatActivity
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     user = documentSnapshot.toObject(User.class);
                     saveChatToDatabase(user.registerNumber);
+                    regno = user.getRegisterNumber();
                 }
             });
 
@@ -225,20 +283,20 @@ public class FeedbackNavActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

@@ -29,7 +29,7 @@
     <string name="navigationItemAnnouncement">Storage</string>
     <string name="navigationItemNotifications">Notifications</string>
     <string name="navigationItemAptitudeQuiz">Aptitude Quiz</string>
-    <string name="navigationItemFeedback">Feedback</string>
+    <string name="navigationItemFeedback">GroupChat</string>
     <string name="navigationItemContatUs">Contact Us</string>
     <string name="navigationItemLogout">Logout</string>
     <string name="navigationItemGroupCommunicate">Communicate</string>
